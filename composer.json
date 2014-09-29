@@ -1,22 +1,26 @@
 {
-	"name": "pulkitjalan/beanstalk-migrate",
-	"description": "Migrate beanstalk jobs from one server to another",
-	"homepage": "https://github.com/pulkitjalan/beanstalk-migrate",
-	"keywords": ["beanstalk"],
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Pulkit Jalan"
-		}
-	],
-	"minimum-stability": "dev",
-	"require": {
-		"php": ">=5.4.0",
-		"pda/pheanstalk": "~3.0"
-	},
-	"autoload": {
-        "files": [
-			"migrate/functions.php"
-		]
-	}
+    "name": "pulkitjalan/beanstalk-migrate",
+    "description": "Migrate beanstalk jobs from one server to another",
+    "homepage": "https://github.com/pulkitjalan/beanstalk-migrate",
+    "keywords": ["beanstalk"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pulkit Jalan"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/console": "~4|~5",
+        "pda/pheanstalk": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Beanstalk\\Migrate\\": "src"
+        }
+    },
+    "bin": [
+        "migrate"
+    ],
+    "minimum-stability": "stable"
 }
