@@ -5,6 +5,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Beanstalk\Migrate\Pheanstalk;
 use Pheanstalk\Job;
+use Exception;
 
 class AbstractCommand extends Command {
 
@@ -71,6 +72,18 @@ class AbstractCommand extends Command {
 
         $this->source = new Pheanstalk($this->argument('source'));
         $this->destination = new Pheanstalk($this->argument('destination'));
+
+        $this->process();
+    }
+
+    /**
+     * Process
+     *
+     * @return void
+     */
+    protected function process()
+    {
+        throw new Exception('Method not implemented!');
     }
 
     /**
@@ -91,7 +104,7 @@ class AbstractCommand extends Command {
     }
 
     /**
-     * Process a job by getting the job stats
+     * Migrate a job by getting the job stats
      * delete it from the source and push it
      * the destination beanstalk
      *
@@ -99,7 +112,7 @@ class AbstractCommand extends Command {
      *
      * @return void
      */
-    protected function process(Job $job)
+    protected function migrateJob(Job $job)
     {
         // get stats from the job to migrate
         $stats = $this->source->statsJob($job);

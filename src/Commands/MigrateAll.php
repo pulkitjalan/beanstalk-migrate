@@ -19,24 +19,25 @@ class MigrateAll extends AbstractCommand {
     protected $description = 'Migrate all jobs from one server to another';
 
     /**
-     * Execute the command.
+     * Process
      *
      * @return void
      */
-    protected function fire()
+    protected function process()
     {
-        parent::fire();
-
         // get a list of all tubes
         $tubes = $this->source->listTubes();
 
-        // process ready and delayed jobs only
-        foreach(['Ready', 'Delayed'] as $type) {
-            foreach($tubes as $tube) {
+        foreach($tubes as $tube) {
+            // process ready and delayed jobs only
+            foreach(['Ready', 'Delayed'] as $type) {
+                // inform user of processing tube
                 $this->info('Processing "'.$type.'" jobs in "'.$tube.'" tube');
+
+                // process
                 try {
                     while ($job = $this->source->{"peek$type"}($tube)) {
-                        $this->process($job);
+                        $this->migrateJob($job);
                     }
                 } catch (ServerException $e) {
                     // catch and ignore ServerException
