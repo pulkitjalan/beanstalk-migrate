@@ -14,7 +14,7 @@ To migrate all jobs from one beanstalk server to another:
 ```
 php migrate all <source:port> <destination:port>
 ```
-`Source` and `Destination` are required, `Port` is not required, it defaults to beanstalks default port (11300).
+`Source` and `Destination` are required, `Port` is optional. `Port` defaults to `11300` (beanstalks default port).
 
 ## Credits
 
