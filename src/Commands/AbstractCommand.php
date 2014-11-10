@@ -139,7 +139,7 @@ class AbstractCommand extends Command {
             $stats->tube,
             $job->getData(),
             $stats->pri,
-            $stats->time-left, // use time left as delay
+            $stats->{'time-left'}, // use time left as delay
             $stats->ttr
         );
     }
