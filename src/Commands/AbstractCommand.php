@@ -5,6 +5,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Beanstalk\Migrate\Pheanstalk;
 use Pheanstalk\Job;
+use Pheanstalk\Response\ArrayResponse;
 use Exception;
 
 class AbstractCommand extends Command {
@@ -116,10 +117,10 @@ class AbstractCommand extends Command {
     {
         // get stats from the job to migrate
         $stats = $this->source->statsJob($job);
-        // delete the job from the source server
-        $this->source->delete($job);
         // add to destination server
         $this->addToDest($job, $stats);
+        // delete the job from the source server
+        $this->source->delete($job);
     }
 
     /**
@@ -131,15 +132,15 @@ class AbstractCommand extends Command {
      *
      * @return void
      */
-    protected function addToDest(Job $job, array $stats)
+    protected function addToDest(Job $job, ArrayResponse $stats)
     {
         // add the job to the destination server
         $this->destination->putInTube(
-            $stats['tube'],
+            $stats->tube,
             $job->getData(),
-            $stats['pri'],
-            $stats['time-left'], // use time left as delay
-            $stats['ttr']
+            $stats->pri,
+            $stats->time-left, // use time left as delay
+            $stats->ttr
         );
     }
 
