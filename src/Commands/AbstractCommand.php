@@ -32,16 +32,8 @@ class AbstractCommand extends Command {
     protected function getArguments()
     {
         return [
-            [
-                'source',
-                InputArgument::REQUIRED,
-                'The source beanstalk server with or without port <beanstalk:port>'
-            ],
-            [
-                'destination',
-                InputArgument::REQUIRED,
-                'The destination beanstalk server with or without port <beanstalk:port>'
-            ]
+            ['source', InputArgument::REQUIRED, 'The source beanstalk server with or without port <beanstalk:port>'],
+            ['destination', InputArgument::REQUIRED, 'The destination beanstalk server with or without port <beanstalk:port>']
         ];
     }
 
@@ -53,12 +45,7 @@ class AbstractCommand extends Command {
     protected function getOptions()
     {
         return [
-            [
-                'force',
-                null,
-                InputOption::VALUE_NONE,
-                'Force the operation to run'
-            ]
+            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run']
         ];
     }
 
