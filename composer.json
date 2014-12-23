@@ -2,7 +2,7 @@
     "name": "pulkitjalan/beanstalk-migrate",
     "description": "Migrate beanstalk jobs from one server to another",
     "homepage": "https://github.com/pulkitjalan/beanstalk-migrate",
-    "keywords": ["beanstalk"],
+    "keywords": ["beanstalk","migrate","transfer"],
     "license": "MIT",
     "authors": [
         {
