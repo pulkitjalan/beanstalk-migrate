@@ -1,7 +1,8 @@
-<?php namespace Beanstalk\Migrate\Commands;
+<?php
+
+namespace Beanstalk\Migrate\Commands;
 
 use Beanstalk\Migrate\Pheanstalk;
-use Exception;
 use Illuminate\Console\Command;
 use Pheanstalk\Job;
 use Pheanstalk\Response\ArrayResponse;
@@ -60,20 +61,9 @@ class AbstractCommand extends Command
             $this->validate();
         }
 
+        // connect to source and destination servers
         $this->source = new Pheanstalk($this->argument('source'));
         $this->destination = new Pheanstalk($this->argument('destination'));
-
-        $this->process();
-    }
-
-    /**
-     * Process.
-     *
-     * @return void
-     */
-    protected function process()
-    {
-        throw new Exception('Method not implemented!');
     }
 
     /**

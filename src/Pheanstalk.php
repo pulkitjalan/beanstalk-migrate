@@ -1,4 +1,6 @@
-<?php namespace Beanstalk\Migrate;
+<?php
+
+namespace Beanstalk\Migrate;
 
 use Pheanstalk\Pheanstalk as PdaPheanstalk;
 use Pheanstalk\PheanstalkInterface;
@@ -38,7 +40,7 @@ class Pheanstalk extends PdaPheanstalk
     {
         $hostPort = explode(':', $hostPort);
 
-        $this->host = $hostPort[0];
-        $this->port = (isset($hostPort[1])) ? $hostPort[1] : PheanstalkInterface::DEFAULT_PORT;
+        $this->host = array_get($hostPort, 0);
+        $this->port = array_get($hostPort, 1, PheanstalkInterface::DEFAULT_PORT);
     }
 }

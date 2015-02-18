@@ -1,4 +1,6 @@
-<?php namespace Beanstalk\Migrate\Commands;
+<?php
+
+namespace Beanstalk\Migrate\Commands;
 
 use Pheanstalk\Exception\ServerException;
 
@@ -19,18 +21,25 @@ class MigrateAll extends AbstractCommand
     protected $description = 'Migrate all jobs from one server to another';
 
     /**
-     * Process.
+     * @var array
+     */
+    protected $jobTypes = ['Ready', 'Delayed'];
+
+    /**
+     * Execute the command.
      *
      * @return void
      */
-    protected function process()
+    protected function fire()
     {
+        parent::fire();
+
         // get a list of all tubes
         $tubes = $this->source->listTubes();
 
         foreach ($tubes as $tube) {
             // process ready and delayed jobs only
-            foreach (['Ready', 'Delayed'] as $type) {
+            foreach ($this->jobTypes as $type) {
                 // inform user of processing tube
                 $this->info('Processing "'.$type.'" jobs in "'.$tube.'" tube');
 
