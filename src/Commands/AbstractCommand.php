@@ -1,24 +1,24 @@
 <?php namespace Beanstalk\Migrate\Commands;
 
-use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Beanstalk\Migrate\Pheanstalk;
+use Exception;
+use Illuminate\Console\Command;
 use Pheanstalk\Job;
 use Pheanstalk\Response\ArrayResponse;
-use Exception;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
-class AbstractCommand extends Command {
-
+class AbstractCommand extends Command
+{
     /**
-     * Source Pheanstalk instance
+     * Source Pheanstalk instance.
      *
      * @var Beanstalk\Migrate\Pheanstalk
      */
     protected $source;
 
     /**
-     * Destination Pheanstalk instance
+     * Destination Pheanstalk instance.
      *
      * @var Beanstalk\Migrate\Pheanstalk
      */
@@ -33,7 +33,7 @@ class AbstractCommand extends Command {
     {
         return [
             ['source', InputArgument::REQUIRED, 'The source beanstalk server with or without port <beanstalk:port>'],
-            ['destination', InputArgument::REQUIRED, 'The destination beanstalk server with or without port <beanstalk:port>']
+            ['destination', InputArgument::REQUIRED, 'The destination beanstalk server with or without port <beanstalk:port>'],
         ];
     }
 
@@ -45,7 +45,7 @@ class AbstractCommand extends Command {
     protected function getOptions()
     {
         return [
-            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run']
+            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run'],
         ];
     }
 
@@ -56,7 +56,9 @@ class AbstractCommand extends Command {
      */
     protected function fire()
     {
-        if (!$this->option('force')) $this->validate();
+        if (!$this->option('force')) {
+            $this->validate();
+        }
 
         $this->source = new Pheanstalk($this->argument('source'));
         $this->destination = new Pheanstalk($this->argument('destination'));
@@ -65,7 +67,7 @@ class AbstractCommand extends Command {
     }
 
     /**
-     * Process
+     * Process.
      *
      * @return void
      */
@@ -75,7 +77,7 @@ class AbstractCommand extends Command {
     }
 
     /**
-     * Validate the input
+     * Validate the input.
      *
      * @return void
      */
@@ -87,16 +89,18 @@ class AbstractCommand extends Command {
             $message .= 'Are you sure you want to continue?';
 
             // confirm if the user wants to continue, default to no
-            if (!$this->confirm($message, false)) exit;
+            if (!$this->confirm($message, false)) {
+                exit;
+            }
         }
     }
 
     /**
      * Migrate a job by getting the job stats
      * delete it from the source and push it
-     * the destination beanstalk
+     * the destination beanstalk.
      *
-     * @param Pheanstalk\Job    $job job to process
+     * @param Pheanstalk\Job $job job to process
      *
      * @return void
      */
@@ -112,10 +116,10 @@ class AbstractCommand extends Command {
 
     /**
      * Take a job, its stats and add it to the
-     * destination beanstalk instance
+     * destination beanstalk instance.
      *
-     * @param Pheanstalk\Job    $job job to process
-     * @param array             $stats Stats about the job
+     * @param Pheanstalk\Job $job   job to process
+     * @param array          $stats Stats about the job
      *
      * @return void
      */
@@ -130,5 +134,4 @@ class AbstractCommand extends Command {
             $stats->ttr
         );
     }
-
 }

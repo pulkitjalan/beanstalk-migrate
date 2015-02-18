@@ -6,14 +6,14 @@ use Pheanstalk\PheanstalkInterface;
 class Pheanstalk extends PdaPheanstalk
 {
     /**
-     * The beanstalk host
+     * The beanstalk host.
      *
      * @var string
      */
     protected $host;
 
     /**
-     * The beanstalk host port
+     * The beanstalk host port.
      *
      * @var string
      */
@@ -30,11 +30,12 @@ class Pheanstalk extends PdaPheanstalk
     }
 
     /**
-     * Parse the host:port or host input
+     * Parse the host:port or host input.
      *
      * @return void
      */
-    protected function parseInput($hostPort) {
+    protected function parseInput($hostPort)
+    {
         $hostPort = explode(':', $hostPort);
 
         $this->host = $hostPort[0];

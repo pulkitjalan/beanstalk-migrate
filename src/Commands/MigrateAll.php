@@ -2,8 +2,8 @@
 
 use Pheanstalk\Exception\ServerException;
 
-class MigrateAll extends AbstractCommand {
-
+class MigrateAll extends AbstractCommand
+{
     /**
      * The console command name.
      *
@@ -19,7 +19,7 @@ class MigrateAll extends AbstractCommand {
     protected $description = 'Migrate all jobs from one server to another';
 
     /**
-     * Process
+     * Process.
      *
      * @return void
      */
@@ -28,9 +28,9 @@ class MigrateAll extends AbstractCommand {
         // get a list of all tubes
         $tubes = $this->source->listTubes();
 
-        foreach($tubes as $tube) {
+        foreach ($tubes as $tube) {
             // process ready and delayed jobs only
-            foreach(['Ready', 'Delayed'] as $type) {
+            foreach (['Ready', 'Delayed'] as $type) {
                 // inform user of processing tube
                 $this->info('Processing "'.$type.'" jobs in "'.$tube.'" tube');
 
@@ -47,5 +47,4 @@ class MigrateAll extends AbstractCommand {
             }
         }
     }
-
 }
